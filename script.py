@@ -98,6 +98,14 @@ def getDirsAndFiles(directories_and_files_to_check,target):
         print(f"Error: {e}")
     return valid_Links
 
+def writeLinksToFile(correct_links):
+    flat_links = list(itertools.chain.from_iterable(correct_links))
+    try:
+        with open("links_output.bat", "a") as file:
+            file.write("\n".join(flat_links))
+    except IOError as e:
+        print(f"Error: {e}")
+
 def main():
     if len(sys.argv) < 4:
         print("Not enough arguments! You need to input 3 arguments(url,subdomains input file, directories and files input file)!")
@@ -112,6 +120,11 @@ def main():
     
     subdomains_to_check = cleanSubdomains(subs_input_file)
     directories_and_files_to_check = cleanDirsAndFiles(dirs_input_file)
+    
+    links1=getSubdomains(subdomains_to_check,url_components)
+    writeLinksToFile(links1)
+    links2=getDirsAndFiles(directories_and_files_to_check,target)
+    writeLinksToFile(links2)
         
 if __name__ == '__main__':
     main()

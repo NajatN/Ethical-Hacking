@@ -69,6 +69,13 @@ def getSubdomains(subdomains_to_check,url_components):
                 print("Not found! ", url_to_check)
         except Exception as e:
                 print("Not found! ", url_to_check)
+    try:
+        with open("subdomains_output.bat", "w") as file:
+            file.write("\n".join(correct_subdomains))
+    except IOError as e:
+        print(f"Error: {e}")
+    return valid_Links
+
 
 def main():
     if len(sys.argv) < 4:

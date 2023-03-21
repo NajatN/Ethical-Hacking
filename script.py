@@ -46,9 +46,12 @@ def getLinks(url):
     links=re.findall(links_pattern,html)
     for link in links:
         if link.startswith("http"):
-            response = requests.get(link)
-            if response.status_code >= 200 and response.status_code <= 299:
-                correct_links.append(link)
+            try:
+                response = requests.get(link)
+                if response.status_code >= 200 and response.status_code <= 299:
+                    correct_links.append(link)
+            except Exception as e:
+                continue
     return correct_links
     
 def getSubdomains(subdomains_to_check,url_components):

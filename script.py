@@ -13,7 +13,9 @@ def getHtml(url):
     except Exception as e:
         print(e)
         sys.exit(1)
+    # A list of encodings to try in order
     encodings = ['utf-8', 'iso-8859-1', 'windows-1252']
+    # Try each encoding until one works
     for encoding in encodings:
         try:
             html = response.content.decode(encoding)
@@ -60,6 +62,7 @@ def getLinks(url):
         if link.startswith("http"):
             try:
                 response = requests.get(link)
+                # Check if the response code is valid
                 if response.status_code >= 200 and response.status_code <= 299:
                     correct_links.append(link)
             except Exception as e:
@@ -75,10 +78,12 @@ def getSubdomains(subdomains_to_check,url_components):
     correct_subdomains = set()
     valid_Links=[]
     for subdomain in subdomains_to_check:
+        # Construct the URL using the subdomain
         if url_components.netloc.startswith("www"):
             url_to_check = f"{url_components.scheme}://www.{subdomain}.{url_components.netloc[4:]}"
         else:
             url_to_check = f"{url_components.scheme}://{subdomain}.{url_components.netloc}"
+        # Send a get request to the URL
         try:
             response = requests.get(url_to_check)
             if response.status_code>=200 and response.status_code<=299:
@@ -89,6 +94,7 @@ def getSubdomains(subdomains_to_check,url_components):
                 print("Not found! ", url_to_check)
         except Exception as e:
                 print("Not found! ", url_to_check)
+    # Write the valid subdomains to the output file
     try:
         with open("subdomains_output.bat", "w") as file:
             file.write("\n".join(correct_subdomains))
@@ -105,7 +111,9 @@ def getDirsAndFiles(directories_and_files_to_check,target):
     correct_directories_and_files = set()
     valid_Links=[]
     for directory_or_file in directories_and_files_to_check:
+        # Construct the URL using the directory or file
         url_to_check = f"{target}/{directory_or_file}"
+        # Send a get request to the URL
         try:
             response = requests.get(url_to_check)
             if response.status_code>=200 and response.status_code<=299:
@@ -116,6 +124,7 @@ def getDirsAndFiles(directories_and_files_to_check,target):
                 print("Not found! ", url_to_check)
         except Exception as e:
                 print("Not found! ", url_to_check)
+    # Write the valid directories and files to the output file
     try:
         with open("directories_and_files_output.bat", "w") as file:
             file.write("\n".join(correct_directories_and_files))

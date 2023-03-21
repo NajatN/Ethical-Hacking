@@ -39,6 +39,18 @@ def cleanDirsAndFiles(dirs_file):
         print(f"Error: {e}")
     return directories_and_files_to_check
 
+def getLinks(url):
+    correct_links=[]
+    links_pattern = r'<a[^>]+href=[\"|\']([^\"\']+)[\"|\'][^>]*>'
+    html=getHtml(url)
+    links=re.findall(links_pattern,html)
+    for link in links:
+        if link.startswith("http"):
+            response = requests.get(link)
+            if response.status_code >= 200 and response.status_code <= 299:
+                correct_links.append(link)
+    return correct_links
+
 def main():
     if len(sys.argv) < 4:
         print("Not enough arguments! You need to input 3 arguments(url,subdomains input file, directories and files input file)!")
@@ -50,6 +62,9 @@ def main():
     
     html=getHtml(target)
     url_components = urllib.parse.urlsplit(target)
+    
+    subdomains_to_check = cleanSubdomains(subs_input_file)
+    directories_and_files_to_check = cleanDirsAndFiles(dirs_input_file)
         
 if __name__ == '__main__':
     main()

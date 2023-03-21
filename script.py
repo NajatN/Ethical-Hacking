@@ -50,6 +50,25 @@ def getLinks(url):
             if response.status_code >= 200 and response.status_code <= 299:
                 correct_links.append(link)
     return correct_links
+    
+def getSubdomains(subdomains_to_check,url_components):
+    correct_subdomains = set()
+    valid_Links=[]
+    for subdomain in subdomains_to_check:
+        if url_components.netloc.startswith("www"):
+            url_to_check = f"{url_components.scheme}://www.{subdomain}.{url_components.netloc[4:]}"
+        else:
+            url_to_check = f"{url_components.scheme}://{subdomain}.{url_components.netloc}"
+        try:
+            response = requests.get(url_to_check)
+            if response.status_code>=200 and response.status_code<=299:
+                correct_subdomains.add(subdomain)
+                print("Found! ",url_to_check)
+                valid_Links.append(getLinks(url_to_check))
+            else:
+                print("Not found! ", url_to_check)
+        except Exception as e:
+                print("Not found! ", url_to_check)
 
 def main():
     if len(sys.argv) < 4:

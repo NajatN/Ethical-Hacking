@@ -28,6 +28,16 @@ def cleanSubdomains(subs_file):
     except IOError as e:
         print(f"Error: {e}")
     return subdomains_to_check
+    
+def cleanDirsAndFiles(dirs_file):
+    try:
+        with open(dirs_file) as file:
+            directories_and_files_to_check = file.read().splitlines()
+            directories_and_files_to_check = [re.sub(r'\s+', '', directory) for directory in directories_and_files_to_check]
+            directories_and_files_to_check = [re.sub(r'^/|/$', '', directory) for directory in directories_and_files_to_check]
+    except IOError as e:
+        print(f"Error: {e}")
+    return directories_and_files_to_check
 
 def main():
     if len(sys.argv) < 4:

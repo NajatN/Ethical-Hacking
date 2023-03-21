@@ -5,6 +5,9 @@ import urllib.parse
 import itertools
 
 def getHtml(url):
+# This function sends an HTTP GET request to a given URL, and tries to decode
+# the response using different character encodings until it succeeds or runs
+# out of encodings to try
     try:
         response = requests.get(url)
     except Exception as e:
@@ -20,6 +23,9 @@ def getHtml(url):
     return html
 
 def cleanSubdomains(subs_file):
+# This function reads a file containing a list of subdomains to check, cleans
+# them up by removing any whitespace or special characters, and returns the
+# cleaned list.
     try:
         with open(subs_file) as file:
             subdomains_to_check = file.read().splitlines()
@@ -30,6 +36,9 @@ def cleanSubdomains(subs_file):
     return subdomains_to_check
     
 def cleanDirsAndFiles(dirs_file):
+# This function reads a file containing a list of directories and files to check,
+# cleans them up by removing any whitespace or trailing slashes, and returns the
+# cleaned list.
     try:
         with open(dirs_file) as file:
             directories_and_files_to_check = file.read().splitlines()
@@ -40,6 +49,9 @@ def cleanDirsAndFiles(dirs_file):
     return directories_and_files_to_check
 
 def getLinks(url):
+# This function gets all the links (hrefs) in the HTML content of a given URL.
+# It filters out links that don't start with "http", and only keeps links
+# that return a successful HTTP status code when requested.
     correct_links=[]
     links_pattern = r'<a[^>]+href=[\"|\']([^\"\']+)[\"|\'][^>]*>'
     html=getHtml(url)
@@ -55,6 +67,11 @@ def getLinks(url):
     return correct_links
     
 def getSubdomains(subdomains_to_check,url_components):
+# This function generates URLs for all the subdomains in a given list, and tries
+# to request each of them. It saves the URLs that return a successful HTTP status
+# code, and also finds all the links in the HTML content of each successful URL.
+# Finally, it writes the successful subdomains to a file, and returns a list of
+# links found in the successful subdomains.
     correct_subdomains = set()
     valid_Links=[]
     for subdomain in subdomains_to_check:
@@ -80,6 +97,11 @@ def getSubdomains(subdomains_to_check,url_components):
     return valid_Links
 
 def getDirsAndFiles(directories_and_files_to_check,target):
+# This function generates URLs for all the directories and files in a given list, and tries
+# to request each of them. It saves the URLs that return a successful HTTP status
+# code, and also finds all the links in the HTML content of each successful URL.
+# Finally, it writes the successful directories and files to a file, and returns a list of
+# links found in the successful directories and files.
     correct_directories_and_files = set()
     valid_Links=[]
     for directory_or_file in directories_and_files_to_check:
@@ -102,6 +124,9 @@ def getDirsAndFiles(directories_and_files_to_check,target):
     return valid_Links
 
 def writeLinksToFile(correct_links):
+# This function takes in a list of lists of valid links (as returned by
+# the `getSubdomains` and `getDirsAndFiles` functions), flattens the list
+# into a single list of links, and writes them to an output file.
     flat_links = list(itertools.chain.from_iterable(correct_links))
     try:
         with open("links_output.bat", "a") as file:
@@ -110,22 +135,29 @@ def writeLinksToFile(correct_links):
         print(f"Error: {e}")
 
 def main():
+    # Check if there are enough arguments to proceed
     if len(sys.argv) < 4:
         print("Not enough arguments! You need to input 3 arguments(url,subdomains input file, directories and files input file)!")
         sys.exit(1)
         
+    # Get target URL and input files for subdomains and directories/files
     target = sys.argv[1]
     subs_input_file = sys.argv[2]
     dirs_input_file = sys.argv[3]
     
+    # Retrieve HTML content and split URL into components
     html=getHtml(target)
     url_components = urllib.parse.urlsplit(target)
     
+    # Extract subdomains and directories/files to check
     subdomains_to_check = cleanSubdomains(subs_input_file)
     directories_and_files_to_check = cleanDirsAndFiles(dirs_input_file)
     
+    # Find links for subdomains and directories/files
     links1=getSubdomains(subdomains_to_check,url_components)
     links2=getDirsAndFiles(directories_and_files_to_check,target)
+    
+    # Write links to output file
     writeLinksToFile(links1)
     writeLinksToFile(links2)
         

@@ -30,6 +30,9 @@ def main():
     target = sys.argv[1]
     subs_input_file = sys.argv[2]
     dirs_input_file = sys.argv[3]
+    
+    html=getHtml(target)
+    url_components = urllib.parse.urlsplit(target)
         
 if __name__ == '__main__':
     main()

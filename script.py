@@ -91,6 +91,12 @@ def getDirsAndFiles(directories_and_files_to_check,target):
                 print("Not found! ", url_to_check)
         except Exception as e:
                 print("Not found! ", url_to_check)
+    try:
+        with open("directories_and_files_output.bat", "w") as file:
+            file.write("\n".join(correct_directories_and_files))
+    except IOError as e:
+        print(f"Error: {e}")
+    return valid_Links
 
 def main():
     if len(sys.argv) < 4:

@@ -125,8 +125,8 @@ def main():
     directories_and_files_to_check = cleanDirsAndFiles(dirs_input_file)
     
     links1=getSubdomains(subdomains_to_check,url_components)
-    writeLinksToFile(links1)
     links2=getDirsAndFiles(directories_and_files_to_check,target)
+    writeLinksToFile(links1)
     writeLinksToFile(links2)
         
 if __name__ == '__main__':

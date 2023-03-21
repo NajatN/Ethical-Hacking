@@ -4,6 +4,16 @@ import re
 import urllib.parse
 import itertools
 
+def getHtml(url):
+    try:
+        response = requests.get(url)
+    except Exception as e:
+        print(e)
+        sys.exit(1)
+    html = response.content.decode()
+    return html
+
+
 def main():
     if len(sys.argv) < 4:
         print("Not enough arguments! You need to input 3 arguments(url,subdomains input file, directories and files input file)!")

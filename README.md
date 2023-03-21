@@ -35,22 +35,27 @@ ____________
 ____________
 
 - getSubdomains(subdomains_to_check, url_components):
+
   This function takes a list of subdomains to check and the URL components of the target URL as input. It constructs URLs using each subdomain and sends a GET request to the URL. If the request is successful, the subdomain is added to a set of correct subdomains. The function also calls the getLinks() function for each valid subdomain URL and returns a list of all the valid links extracted from the subdomains.
 ____________
 
 - getDirsAndFiles(directories_and_files_to_check, target):
+
   This function takes a list of directories and files to check and the target URL as input. It constructs URLs using each directory or file and sends a GET request to the URL. If the request is successful, the directory or file is added to a set of correct directories and files. The function also calls the getLinks() function for each valid directory or file URL and returns a list of all the valid links extracted from the directories and files.
 ____________
 
 - cleanSubdomains(subs_file):
+
   This function takes a subdomains input file as input and returns a list of cleaned subdomains. It reads the subdomains from the input file, removes any whitespace, and removes any characters that are not alphanumeric, hyphen, or period.
 ____________
 
 - cleanDirsAndFiles(dirs_file):
+
   This function takes a directories and files input file as input and returns a list of cleaned directories and files. It reads the directories and files from the input file, removes any whitespace, and removes any leading or trailing forward slashes.
 ____________
 
 - writeLinksToFile(correct_links):
+
   This function takes a list of valid links as input and writes them to an output file. It flattens the list of lists into a single list of strings and writes them to the output file.
 ____________
 

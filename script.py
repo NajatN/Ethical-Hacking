@@ -10,7 +10,15 @@ def getHtml(url):
     except Exception as e:
         print(e)
         sys.exit(1)
-    html = response.content.decode()
+    # A list of encodings to try in order
+    encodings = ['utf-8', 'iso-8859-1', 'windows-1252']
+    # Try each encoding until one works
+    for encoding in encodings:
+        try:
+            html = response.content.decode(encoding)
+            break
+        except UnicodeDecodeError:
+            continue
     return html
 
 

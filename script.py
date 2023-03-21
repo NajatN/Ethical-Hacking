@@ -10,9 +10,7 @@ def getHtml(url):
     except Exception as e:
         print(e)
         sys.exit(1)
-    # A list of encodings to try in order
     encodings = ['utf-8', 'iso-8859-1', 'windows-1252']
-    # Try each encoding until one works
     for encoding in encodings:
         try:
             html = response.content.decode(encoding)
@@ -21,6 +19,15 @@ def getHtml(url):
             continue
     return html
 
+def cleanSubdomains(subs_file):
+    try:
+        with open(subs_file) as file:
+            subdomains_to_check = file.read().splitlines()
+            subdomains_to_check = [re.sub(r'\s+', '', subdomain) for subdomain in subdomains_to_check]
+            subdomains_to_check = [re.sub(r'[^\w.-]', '', subdomain) for subdomain in subdomains_to_check]
+    except IOError as e:
+        print(f"Error: {e}")
+    return subdomains_to_check
 
 def main():
     if len(sys.argv) < 4:

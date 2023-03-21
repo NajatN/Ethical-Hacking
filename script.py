@@ -76,6 +76,21 @@ def getSubdomains(subdomains_to_check,url_components):
         print(f"Error: {e}")
     return valid_Links
 
+def getDirsAndFiles(directories_and_files_to_check,target):
+    correct_directories_and_files = set()
+    valid_Links=[]
+    for directory_or_file in directories_and_files_to_check:
+        url_to_check = f"{target}/{directory_or_file}"
+        try:
+            response = requests.get(url_to_check)
+            if response.status_code>=200 and response.status_code<=299:
+                correct_directories_and_files.add(directory_or_file)
+                print("Found! ",url_to_check)
+                valid_Links.append(getLinks(url_to_check))
+            else:
+                print("Not found! ", url_to_check)
+        except Exception as e:
+                print("Not found! ", url_to_check)
 
 def main():
     if len(sys.argv) < 4:

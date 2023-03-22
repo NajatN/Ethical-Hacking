@@ -54,6 +54,7 @@ def getLinks(url):
 # This function gets all the links (hrefs) in the HTML content of a given URL.
 # It filters out links that don't start with "http", and only keeps links
 # that return a successful HTTP status code when requested.
+    print("Retrieving links...")
     correct_links=[]
     links_pattern = r'<a[^>]+href=[\"|\']([^\"\']+)[\"|\'][^>]*>'
     html=getHtml(url)
@@ -64,9 +65,12 @@ def getLinks(url):
                 response = requests.get(link)
                 # Check if the response code is valid
                 if response.status_code >= 200 and response.status_code <= 299:
+                    print("Found! ",link)
                     correct_links.append(link)
+                else:
+                    print("Not found! ",link)
             except Exception as e:
-                continue
+                    print("Not found! ",link)
     return correct_links
     
 def getSubdomains(subdomains_to_check,url_components):
@@ -133,6 +137,14 @@ def getDirsAndFiles(directories_and_files_to_check,target):
     return valid_Links
 
 def writeLinksToFile(correct_links):
+# This function takes in a list of valid links and writes them to an output file.
+    try:
+        with open("links_output.bat", "a") as file:
+            file.write("\n".join(correct_links))
+    except IOError as e:
+        print(f"Error: {e}")
+
+def writeFlatLinksToFile(correct_links):
 # This function takes in a list of lists of valid links (as returned by
 # the `getSubdomains` and `getDirsAndFiles` functions), flattens the list
 # into a single list of links, and writes them to an output file.
@@ -154,8 +166,8 @@ def main():
     subs_input_file = sys.argv[2]
     dirs_input_file = sys.argv[3]
     
-    # Retrieve HTML content and split URL into components
-    html=getHtml(target)
+    # Retrieve links from HTML content of target website and split URL into components
+    links1=getLinks(target)
     url_components = urllib.parse.urlsplit(target)
     
     # Extract subdomains and directories/files to check
@@ -163,12 +175,13 @@ def main():
     directories_and_files_to_check = cleanDirsAndFiles(dirs_input_file)
     
     # Find links for subdomains and directories/files
-    links1=getSubdomains(subdomains_to_check,url_components)
-    links2=getDirsAndFiles(directories_and_files_to_check,target)
+    links2=getSubdomains(subdomains_to_check,url_components)
+    links3=getDirsAndFiles(directories_and_files_to_check,target)
     
     # Write links to output file
     writeLinksToFile(links1)
-    writeLinksToFile(links2)
+    writeFlatLinksToFile(links2)
+    writeFlatLinksToFile(links3)
         
 if __name__ == '__main__':
     main()

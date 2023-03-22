@@ -61,6 +61,11 @@ ____________
   One of the initial challenges I faced was downloading the Requests library, which is a crucial tool for sending HTTP requests in Python. At first, I tried to download the 'requests' package through the command prompt, but it didn't work. I then tried to install it using pip, but still encountered issues. Finally, I downloaded the package manually from the official website, which actually worked.
 _______________________________
 
+- Dealing with UnicodeDecodeError:
+  
+  I also encountered the UnicodeDecodeError when decoding the HTML content of various websites meant for testing ethical hacking. To overcome this challenge, the getHtml() function tries each encoding until it succeeds or runs out of encodings to try.
+_______________________________
+
 - Encountering several exceptions:
 
   Another problem I faced was encountering several exceptions and having the code stop abruptly during the execution. This happened mainly when I was sending GET requests to certain endpoints, which could result in a variety of errors such as connection errors, timeouts, or invalid responses. To resolve this, I included a try-except block when sending a GET request, which allowed the program to catch and handle any exceptions that may occur.
@@ -68,7 +73,12 @@ ________________________________
 
 - Managing code:
   
-  One of the main challenges I faced while developing the code for this project was that it quickly became very messy and difficult to manage. There were several repetitive sections of code that made it hard to read and maintain, and the logic was scattered throughout the script. To overcome this problem, I decided to refactor the code by creating functions to encapsulate common tasks and simplify the main logic. By breaking down the code into smaller, reusable parts, I was able to make it more organized and easier to understand.
+  One of the main challenges while developing the code for this project was that it quickly became very messy and difficult to manage. There were several repetitive sections of code that made it hard to read and maintain, and the logic was scattered throughout the script. To overcome this problem, I decided to refactor the code by creating functions to encapsulate common tasks and simplify the main logic. By breaking down the code into smaller, reusable parts, I was able to make it more organized and easier to understand.
+________________________________
+
+- Constructing URLs for subdomains:
+
+  I faced the challenge of properly constructing URLs for subdomains in the getSubdomains() function. This was overcome by using the netloc attribute of the urllib.parse.urlparse() function to get the domain name from the URL and then constructing the subdomain URL using the obtained domain name.
 ________________________________
 
 - Using Metasploit to test script:

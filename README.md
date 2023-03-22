@@ -56,5 +56,18 @@ ____________
 
 
 ## Challenges :warning:
+- Downloading Requests Library:
+
+  One of the initial challenges I faced was downloading the Requests library, which is a crucial tool for sending HTTP requests in Python. At first, I tried to download the 'requests' package through the command prompt, but it didn't work. I then tried to install it using pip, but still encountered issues. Finally, I downloaded the package manually from the official website, which actually worked.
+_______________________________
+
+- Encountering Several Exceptions:
+
+  Another challenge I faced was encountering several exceptions and having the code stop abruptly during the execution. This happened mainly when I was sending GET requests to certain endpoints, which could result in a variety of errors such as connection errors, timeouts, or invalid responses. To resolve this, I included a try-except block when sending a GET request, which allowed the program to catch and handle any exceptions that may occur.
+________________________________
+
+- Not Being Able to Use Metasploit to Test Script:
+
+  Finally, I faced a challenge when trying to test my script using Metasploit, a popular penetration testing framework. Upon researching, I found out that Metasploit does not provide websites for testing scripts, but rather Metasploitable is designed for that purpose. However, my attempts to install Metasploitable were unsuccessful. As a workaround, I resorted to using websites like 'tryhackme.com' to test my script.
 
 

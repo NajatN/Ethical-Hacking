@@ -52,8 +52,12 @@ ____________
 
 - writeLinksToFile(correct_links):
 
-  This function takes a list of valid links as input and writes them to an output file. It flattens the list of lists into a single list of strings and writes them to the output file.
+  This function takes a list of valid links as input and writes them to an output file.
+____________
 
+- writeFlatLinksToFile(correct_links):
+
+  This function takes a list of lists of valid links as input and writes them to an output file. It flattens the list of lists into a single list of strings and writes them to the output file.
 
 ## Challenges :warning:
 - Downloading requests library:

@@ -63,7 +63,7 @@ _______________________________
 
 - Encountering Several Exceptions:
 
-  Another challenge I faced was encountering several exceptions and having the code stop abruptly during the execution. This happened mainly when I was sending GET requests to certain endpoints, which could result in a variety of errors such as connection errors, timeouts, or invalid responses. To resolve this, I included a try-except block when sending a GET request, which allowed the program to catch and handle any exceptions that may occur.
+  Another problem I faced was encountering several exceptions and having the code stop abruptly during the execution. This happened mainly when I was sending GET requests to certain endpoints, which could result in a variety of errors such as connection errors, timeouts, or invalid responses. To resolve this, I included a try-except block when sending a GET request, which allowed the program to catch and handle any exceptions that may occur.
 ________________________________
 
 - Not Being Able to Use Metasploit to Test Script:

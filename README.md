@@ -8,7 +8,7 @@ This is a Python script that takes three arguments - a URL, a subdomains input f
 * Writes the available subdomains, directories, and files to output files.
 * Writes all the links extracted from the subdomains, directories, and files to an output file.
 
-This script is designed to perform reconnaissance on a target website by checking the availability of subdomains, directories, and files and extracting links from them. This information can be used for further analysis and potentially for exploiting vulnerabilities in the target website.
+This script is designed to perform reconnaissance on a target website by checking the availability of subdomains, directories, and files. It then extracts links from these locations and provides the information for further analysis. The information gathered can be used to identify potential vulnerabilities in the target website, which could be used to exploit it. Therefore, this script can be a useful tool for security researchers and penetration testers to test the security of websites and identify areas that need to be strengthened to prevent potential cyber attacks.
 
 ## Dependencies
 This code depends on the following Python libraries:

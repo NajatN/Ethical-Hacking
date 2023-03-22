@@ -10,6 +10,16 @@ This is a Python script that takes three arguments - a URL, a subdomains input f
 
 This script is designed to perform reconnaissance on a target website by checking the availability of subdomains, directories, and files. It then extracts links from these locations and provides the information for further analysis. The information gathered can be used to identify potential vulnerabilities in the target website, which could be used to exploit it. Therefore, this script can be a useful tool for security researchers and penetration testers to test the security of websites and identify areas that need to be strengthened to prevent potential cyber attacks.
 
+## Usage
+Execute the following command on terminal after changing your current directory to the one containing the script.py file. File1 and file2 are the files comprising the subdomains to check, and the directories and files to check, respectively. In my case, I used 'subdomains_dictionary.bat' and 'dirs_dictionary.bat'. However, I didn't hardcode these specific files into my script in case it is to be tested on different input files.
+
+Replace 'http://www.example.com' with the target website's URL.
+
+Replace 'file1' and 'file2' with the input files you intend to read subdomains, directories, and files from.
+```
+python3 script.py http://www.example.com file1 file2
+```
+
 ## Dependencies
 This code depends on the following Python libraries:
 

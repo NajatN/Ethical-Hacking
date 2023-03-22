@@ -1,8 +1,8 @@
 # Ethical Hacking & Website Exploitation
 ## Description
 This is a Python script that takes three arguments - a URL, a subdomains input file, and a directories and files input file - and does the following: 
-* Checks the availability of subdomains by constructing URLs using subdomains and sending a GET request to the URL.
-* Checks the availability of directories and files by constructing URLs using directories and files and sending a GET request to the URL.
+* Checks the availability of subdomains by constructing URLs using given subdomains and sending a GET request to each URL.
+* Checks the availability of directories and files by constructing URLs using given directories and files and sending a GET request to each URL.
 * Retrieves the HTML content of the valid URLs discovered.
 * Extracts links from the retrieved HTML content.
 * Writes the available subdomains, directories, and files to output files.
